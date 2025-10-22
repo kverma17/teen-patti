@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>Teen Patti - Select 3 Cards</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Teen Patti Hand Evaluator</h1>
+      <div id="stats" class="stats">Select 3 cards</div>
+    </header>
+
+    <main>
+      <div class="suits">
+        {% for suit, cards in suits.items() %}
+        <section class="suit">
+          <h2 class="suit-title">{{ suit }}</h2>
+          <div class="card-grid">
+            {% for c in cards %}
+            <button class="card" data-card="{{ c }}">{{ c }}</button>
+            {% endfor %}
+          </div>
+        </section>
+        {% endfor %}
+      </div>
+
+      <div class="footer-note">Tap cards to select/deselect. When 3 are selected, the hand is evaluated.</div>
+    </main>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

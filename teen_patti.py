@@ -214,6 +214,33 @@ def percentile_of_better(rank, total):
     return pct
 
 
+def get_hand_stats(hand, precomputed_sorted_hands=None):
+    """Return a dict with category, rank, total, better_count and percentile for the given hand.
+
+    This is a small helper intended for programmatic use (e.g., a web backend).
+    """
+    # validation
+    deck = set(generate_deck())
+    if len(hand) != 3:
+        raise ValueError('Hand must contain exactly 3 cards')
+    if any(c not in deck for c in hand):
+        raise ValueError('Invalid card in hand')
+    if len(set(hand)) != 3:
+        raise ValueError('Duplicate cards in hand')
+
+    cat = get_hand_category(hand)
+    rank, total = rank_hand(hand, precomputed_sorted_hands=precomputed_sorted_hands)
+    better = rank - 1
+    pct = percentile_of_better(rank, total)
+    return {
+        'category': cat,
+        'rank': rank,
+        'total': total,
+        'better_count': better,
+        'better_percent': pct,
+    }
+
+
 if __name__ == '__main__':
     # Quick CLI demo and sample outputs
     print(f"Total possible Teen Patti hands: {TOTAL_HANDS}")
